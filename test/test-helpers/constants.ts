@@ -1,11 +1,12 @@
 import { defaultAccounts } from 'ethereum-waffle'
 
-import { BigNumber } from './number'
+// import { BigNumber } from './number'
 
 export const DEFAULT_ACCOUNTS = defaultAccounts
 export const DEFAULT_ACCOUNTS_BUIDLER = defaultAccounts.map((account) => {
     return {
-      balance: new BigNumber(account.balance).toString('hex'),
+      // balance: new BigNumber(account.balance).toString('hex'),
+      balance: "1000",
       privateKey: account.secretKey,
     }
   })

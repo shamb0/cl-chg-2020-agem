@@ -12,37 +12,37 @@ describe("Token Test", () => {
     [wallet] = await ethers.getSigners();
   });
 
-  let TokenProxyFactory: ContractFactory;
-  let TokenFactory: ContractFactory;
-  let TokenProxyInst: Contract;
+  let SimpleTokenFactoryContAbs: ContractFactory;
+  let SimpleTokenFactoryInst: Contract;
+
+  let SimpleTokenLogContAbs: ContractFactory;
+  let SimpleTokenLogInst: Contract;
 
   before(async () => {
-    TokenProxyFactory = await ethers.getContractFactory("TokenProxy");
-    TokenProxyInst = await upgrades.deployProxy( TokenProxyFactory );
-    await TokenProxyInst.deployed();
+    SimpleTokenFactoryContAbs = await ethers.getContractFactory("SimpleTokenFactory");
+    SimpleTokenFactoryInst = await upgrades.deployProxy( SimpleTokenFactoryContAbs );
+    await SimpleTokenFactoryInst.deployed();
 
-    TokenFactory = await ethers.getContractFactory("Token");
-  });
-
-  let TokenInst: Contract;
-
-  beforeEach(async () => {
-    const TokenInst = await upgrades.upgradeProxy(TokenProxyInst.address, TokenFactory);
+    SimpleTokenLogContAbs = await ethers.getContractFactory("SimpleToken");
+    SimpleTokenLogInst = await SimpleTokenLogContAbs.deploy();
   });
 
   it( "1st Test", async () => {
-      console.log("running Hi Hello !!!")
+
+    let TokenAInst: Contract;
+    let TokenBInst: Contract;
+
+    console.log("running Hi Hello !!!");
+
+    await SimpleTokenFactoryInst.initialize(SimpleTokenLogInst.address, "Token A", "TKA", await wallet.getAddress())
+    await SimpleTokenFactoryInst.initialize(SimpleTokenLogInst.address, "Token B", "TKB", await wallet.getAddress())
+
+    TokenAInst = SimpleTokenLogContAbs.attach(await SimpleTokenFactoryInst.tokens(0))
+    TokenBInst = SimpleTokenLogContAbs.attach(await SimpleTokenFactoryInst.tokens(1))
+
+    console.log( await TokenAInst.name() )
+    console.log( await TokenBInst.name() )
+
   });
 
 });
-
-async function main() {
-  // Deploying
-  const Box = await ethers.getContractFactory("Box");
-  const instance = await upgrades.deployProxy(Box, [42]);
-  await instance.deployed();
-
-  // Upgrading
-  const BoxV2 = await ethers.getContractFactory("BoxV2");
-  const upgraded = await upgrades.upgradeProxy(instance.address, BoxV2);
-}

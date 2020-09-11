@@ -55,6 +55,11 @@
     "typescript": "^4.0.2"
   },
   "dependencies": {
-    "@openzeppelin/upgrades-core": "^1.0.1"
+    "@openzeppelin/contracts-ethereum-package": "2.5.0",
+    "@openzeppelin/upgrades": "^2.8.0",
+    "@types/abstract-leveldown": "^5.0.1",
+    "abstract-leveldown": "^6.3.0",
+    "debug": "^4.1.1",
+    "ethereumjs-util": "^7.0.5"
   }
 }

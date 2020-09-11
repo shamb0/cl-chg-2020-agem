@@ -42,7 +42,7 @@ const config: BuidlerConfig = {
     timeout: 50000,
   },
   solc: {
-    version: "0.5.17",
+    version: "0.5.3",
     optimizer: { enabled: true, runs: 200 },
   },
 }
