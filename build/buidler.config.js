@@ -3,11 +3,9 @@ Object.defineProperty(exports, "__esModule", { value: true });
 const config_1 = require("@nomiclabs/buidler/config");
 const constants_1 = require("./test/test-helpers/constants");
 config_1.usePlugin('@nomiclabs/buidler-ethers');
-config_1.usePlugin('@openzeppelin/buidler-upgrades');
 config_1.usePlugin('@nomiclabs/buidler-waffle');
 config_1.usePlugin('@nomiclabs/buidler-solpp');
 config_1.usePlugin('solidity-coverage');
-config_1.usePlugin('buidler-spdx-license-identifier');
 const parseSolppFlags = () => {
     const flags = {};
     const solppEnv = process.env.SOLPP_FLAGS;

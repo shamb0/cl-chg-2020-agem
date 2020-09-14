@@ -6,11 +6,9 @@ import {
 } from './test/test-helpers/constants'
 
 usePlugin('@nomiclabs/buidler-ethers')
-usePlugin('@openzeppelin/buidler-upgrades')
 usePlugin('@nomiclabs/buidler-waffle')
 usePlugin('@nomiclabs/buidler-solpp')
 usePlugin('solidity-coverage')
-usePlugin('buidler-spdx-license-identifier')
 
 const parseSolppFlags = (): { [flag: string]: boolean } => {
   const flags: { [flag: string]: boolean } = {}
