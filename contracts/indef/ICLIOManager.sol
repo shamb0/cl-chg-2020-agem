@@ -1,17 +1,15 @@
-pragma solidity ^0.5.0;
+// pragma solidity ^0.5.0;
+pragma solidity ^0.6.6;
+
 /**
  * @title ICLIOManager
  * @notice The ChainLinkIO Manager Interface definitions
  */
-contract ICLIOManager {
+abstract contract ICLIOManager {
 
     /***************
     * ChainLink IO *
     ****************/
 
-    function getStorage(
-        address _ovmContractAddress,
-        bytes32 _slot
-    ) public returns (bytes32);
-
+    function getRandomNumber(uint256 userProvidedSeed) public virtual returns (bytes32 requestId);
 }

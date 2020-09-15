@@ -1,1 +1,0 @@
-{"version":3,"file":"gdefs.js","sourceRoot":"","sources":["../../../../test/test-utils/intf/gdefs.ts"],"names":[],"mappings":";;;AAEa,QAAA,YAAY,GAAG,4CAA4C,CAAA;AAE3D,QAAA,YAAY,GAAG,IAAI,GAAG,IAAI,CAAC,MAAM,CAAC,EAAE,CAAC,CAAA;AACrC,QAAA,eAAe,GAAG,4CAA4C,CAAA;AAkC9D,QAAA,qBAAqB,GAAG;IACnC,UAAU,EAAE,YAAY;IACxB,eAAe,EAAE,iBAAiB;IAClC,WAAW,EAAE,aAAa;IAC1B,OAAO,EAAE,SAAS;CACnB,CAAA"}

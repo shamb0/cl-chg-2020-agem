@@ -1,9 +1,11 @@
-pragma solidity ^0.5.0;
+// pragma solidity ^0.5.0;
+pragma solidity ^0.6.6;
+
 /**
  * @title IGEMTokenManager
  * @notice The GEM Token Manager Interface definitions
  */
-contract IGEMTokenManager {
+abstract contract IGEMTokenManager {
 
     /***************
     * ChainLink IO *
@@ -12,6 +14,6 @@ contract IGEMTokenManager {
     function getStorage(
         address _ovmContractAddress,
         bytes32 _slot
-    ) public returns (bytes32);
+    ) public virtual returns (bytes32);
 
 }

@@ -1,9 +1,8 @@
 /* External Imports */
-import { getLogger, ZERO_ADDRESS } from '../test-utils'
-
 import { Contract, ethers } from 'ethers'
+
 /* Internal Imports */
-import { getContractFactory, getContractInterface } from '../test-utils'
+import { getLogger, ZERO_ADDRESS, getContractFactory, getContractInterface } from '../test-utils'
 import { mergeDefaultConfig } from './default-config'
 import {
   AddressResolverMapping,
@@ -93,7 +92,6 @@ export const deployAndRegister = async (
 export const deployAllContracts = async (
   config: TstAppDeployConfig
 ): Promise<AddressResolverMapping> => {
-
   // log.debug(
   //   `Attempting to deploy all GEM contracts with the following options: \n${JSON.stringify(
   //     config
@@ -126,7 +124,7 @@ export const deployAllContracts = async (
   const deployConfig = await mergeDefaultConfig(
     addressResolver.address,
     config.contractDeployConfig,
-    config.signer,
+    config.signer
   )
 
   const contracts: any = {}
@@ -153,17 +151,20 @@ export const deployAllContracts = async (
         deployConfig[name]
       )
 
-      if( contractName == 'GEFMain' ){
+      // if (contractName == 'GEFMain') {
+      //   const geftokenmgr = factoryToContractName.GEFTokenManager
 
-        const geftokenmgr = factoryToContractName.GEFTokenManager
+      //   await contracts[geftokenmgr].addMinter(
+      //     await addressResolver.getAddress(contractName)
+      //   )
 
-        await contracts[geftokenmgr].addMinter( await addressResolver.getAddress(contractName) )
+      //   log.info(
+      //     `${contractName} at address ${await addressResolver.getAddress(
+      //       contractName
+      //     )} added as Minter`
+      //   )
+      // }
 
-        log.info(
-          `${contractName} at address ${await addressResolver.getAddress(contractName)} added as Minter`
-        )
-
-      }
     }
   }
 

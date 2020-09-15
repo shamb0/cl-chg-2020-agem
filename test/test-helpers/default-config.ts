@@ -1,8 +1,8 @@
 /* External Imports */
-import { Signer } from 'ethers'
+import { Signer } from "ethers"
 
 /* Internal Imports */
-import { getContractFactory, ContractDeployConfig } from '../test-utils'
+import { getContractFactory, ContractDeployConfig } from "../test-utils"
 
 /**
  * Generates the default deployment configuration. Runs as an async function
@@ -13,33 +13,30 @@ import { getContractFactory, ContractDeployConfig } from '../test-utils'
  */
 export const getDefaultContractDeployConfig = async (
   addressResolverAddress: string,
-  deployerWallet: Signer,
+  deployerWallet: Signer
 ): Promise<ContractDeployConfig> => {
   return {
-        ECUManager: {
-            factory: getContractFactory('ECUManager'),
-            params: [ addressResolverAddress ],
-            signer: deployerWallet,
-        },
-        GEFTokenManager: {
-            factory: getContractFactory('GEFTokenManager'),
-            params: [ addressResolverAddress,
-                      "Green Energy Farm",
-                      "GEF",
-                      18 ],
-            signer: deployerWallet,
-        },
-        CLIOManager: {
-            factory: getContractFactory('CLIOManager'),
-            params: [ addressResolverAddress ],
-            signer: deployerWallet,
-        },
-        GEFMain: {
-            factory: getContractFactory('GEFMain'),
-            params: [ addressResolverAddress ],
-            signer: deployerWallet,
-        },
-    }
+    ECUManager: {
+      factory: getContractFactory("ECUManager"),
+      params: [addressResolverAddress],
+      signer: deployerWallet,
+    },
+    GEFTokenManager: {
+      factory: getContractFactory("GEFTokenManager"),
+      params: [addressResolverAddress, "Green Energy Farm", "GEF"],
+      signer: deployerWallet,
+    },
+    CLIOManager: {
+      factory: getContractFactory("CLIOManager"),
+      params: [addressResolverAddress],
+      signer: deployerWallet,
+    },
+    GEFMain: {
+      factory: getContractFactory("GEFMain"),
+      params: [addressResolverAddress],
+      signer: deployerWallet,
+    },
+  }
 }
 
 /**
@@ -52,17 +49,15 @@ export const getDefaultContractDeployConfig = async (
 export const mergeDefaultConfig = async (
   addressResolverAddress: string,
   config?: Partial<ContractDeployConfig>,
-  signer?: Signer,
+  signer?: Signer
 ): Promise<ContractDeployConfig> => {
-
   const defaultConfig = await getDefaultContractDeployConfig(
-                                  addressResolverAddress,
-                                  signer
-                                  )
+    addressResolverAddress,
+    signer
+  )
 
   return {
     ...defaultConfig,
     ...(config || {}),
   }
-
 }

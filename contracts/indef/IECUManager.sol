@@ -1,9 +1,11 @@
-pragma solidity ^0.5.0;
+// pragma solidity ^0.5.0;
+pragma solidity ^0.6.6;
+
 /**
  * @title IECUManager
  * @notice The Energy Charging Unit Manager Interface definitions
  */
-contract IECUManager {
+abstract contract IECUManager {
 
     /***************
     * ChainLink IO *
@@ -12,6 +14,6 @@ contract IECUManager {
     function getStorage(
         address _ovmContractAddress,
         bytes32 _slot
-    ) public returns (bytes32);
+    ) public virtual returns (bytes32);
 
 }

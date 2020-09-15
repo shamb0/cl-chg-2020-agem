@@ -1,4 +1,6 @@
-pragma solidity ^0.5.0;
+// pragma solidity ^0.5.0;
+pragma solidity ^0.6.6;
+
 
 /* Library Imports */
 import { AddressResolver } from "./AddressResolver.sol";

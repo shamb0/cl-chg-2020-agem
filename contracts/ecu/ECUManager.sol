@@ -1,10 +1,13 @@
-pragma solidity ^0.5.0;
+// pragma solidity ^0.5.0;
+pragma solidity ^0.6.6;
 pragma experimental ABIEncoderV2;
 
 import { ContractResolver } from "../infra/resolvers/ContractResolver.sol";
 import { CommonTypes } from "../infra/CommonTypes.sol";
 import "@openzeppelin/contracts/math/SafeMath.sol";
 // import "@openzeppelin/contracts/math/SignedSafeMath.sol";
+
+import { ICLIOManager } from "../indef/ICLIOManager.sol";
 
 import "@nomiclabs/buidler/console.sol";
 
@@ -35,9 +38,11 @@ contract ECUManager is ContractResolver {
      */
 
     function random() private returns (uint) {
+        ICLIOManager clio = ICLIOManager( resolveContract( 'CLIOManagerProxy' ) );
         uint randomnumber = uint(keccak256(abi.encodePacked(now, msg.sender, nonce))) % 100;
         randomnumber = randomnumber + 1;
         nonce++;
+        clio.getRandomNumber( 2000 );
         return randomnumber;
     }
 
