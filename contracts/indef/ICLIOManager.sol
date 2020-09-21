@@ -10,6 +10,5 @@ abstract contract ICLIOManager {
     /***************
     * ChainLink IO *
     ****************/
-
-    function getRandomNumber(uint256 userProvidedSeed) public virtual returns (bytes32 requestId);
+    uint256 public randomResult;
 }

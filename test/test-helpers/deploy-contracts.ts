@@ -1,5 +1,5 @@
 /* External Imports */
-import { Contract, ethers } from 'ethers'
+import { Contract, ethers, utils } from 'ethers'
 
 /* Internal Imports */
 import { getLogger, ZERO_ADDRESS, getContractFactory, getContractInterface } from '../test-utils'
@@ -151,19 +151,24 @@ export const deployAllContracts = async (
         deployConfig[name]
       )
 
-      // if (contractName == 'GEFMain') {
-      //   const geftokenmgr = factoryToContractName.GEFTokenManager
+      if (contractName == 'GEFMain') {
 
-      //   await contracts[geftokenmgr].addMinter(
-      //     await addressResolver.getAddress(contractName)
-      //   )
+        const geftokenmgr = factoryToContractName.GEFTokenManager
+        const message = "MINTER_ROLE";
+        const messageBytes = utils.toUtf8Bytes(message);
+        const minterrolehash = utils.keccak256( messageBytes )
 
-      //   log.info(
-      //     `${contractName} at address ${await addressResolver.getAddress(
-      //       contractName
-      //     )} added as Minter`
-      //   )
-      // }
+        await contracts[geftokenmgr].grantRole(
+          minterrolehash,
+          await addressResolver.getAddress(contractName)
+        )
+
+        log.info(
+          `${contractName} at address ${await addressResolver.getAddress(
+            contractName
+          )} added as Minter`
+        )
+      }
 
     }
   }

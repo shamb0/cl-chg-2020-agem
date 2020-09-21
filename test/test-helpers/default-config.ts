@@ -26,8 +26,13 @@ export const getDefaultContractDeployConfig = async (
       params: [addressResolverAddress, "Green Energy Farm", "GEF"],
       signer: deployerWallet,
     },
-    CLIOManager: {
-      factory: getContractFactory("CLIOManager"),
+    CLIOAlarmManager: {
+      factory: getContractFactory("CLIOAlarmManager"),
+      params: [addressResolverAddress],
+      signer: deployerWallet,
+    },
+    CLIOVRFManager: {
+      factory: getContractFactory("CLIOVRFManager"),
       params: [addressResolverAddress],
       signer: deployerWallet,
     },

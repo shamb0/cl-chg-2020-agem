@@ -14,20 +14,23 @@ export interface ContractDeployOptions {
 export type ContractFactoryName =
   | 'ECUManager'
   | 'GEFTokenManager'
-  | 'CLIOManager'
+  | 'CLIOAlarmManager'
+  | 'CLIOVRFManager'
   | 'GEFMain'
 
 export interface ContractDeployConfig {
   ECUManager: ContractDeployOptions
   GEFTokenManager: ContractDeployOptions
-  CLIOManager: ContractDeployOptions
+  CLIOAlarmManager: ContractDeployOptions
+  CLIOVRFManager: ContractDeployOptions
   GEFMain: ContractDeployOptions
 }
 
 interface ContractMapping {
   ECUManager: Contract
   GEFTokenManager: Contract
-  CLIOManager: Contract
+  CLIOAlarmManager: Contract
+  CLIOVRFManager: Contract
   GEFMain: Contract
 }
 
@@ -39,7 +42,8 @@ export interface AddressResolverMapping {
 export const factoryToContractName = {
   ECUManager: 'ECUManager',
   GEFTokenManager: 'GEFTokenManager',
-  CLIOManager: 'CLIOManager',
+  CLIOAlarmManager: 'CLIOAlarmManager',
+  CLIOVRFManager: 'CLIOVRFManager',
   GEFMain: 'GEFMain',
 }
 

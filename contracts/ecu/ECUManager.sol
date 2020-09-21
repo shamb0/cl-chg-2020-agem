@@ -37,12 +37,12 @@ contract ECUManager is ContractResolver {
      * Internal Functions
      */
 
-    function random() private returns (uint) {
-        ICLIOManager clio = ICLIOManager( resolveContract( 'CLIOManagerProxy' ) );
-        uint randomnumber = uint(keccak256(abi.encodePacked(now, msg.sender, nonce))) % 100;
+    function random() private returns (uint256) {
+        // ICLIOManager clio = ICLIOManager( resolveContract( 'CLIOVRFManager' ) );
+        uint256 randomnumber = uint(keccak256(abi.encodePacked(now, msg.sender, nonce))) % 100;
         randomnumber = randomnumber + 1;
         nonce++;
-        clio.getRandomNumber( 2000 );
+        // randomnumber = randomnumber.add( clio.randomResult() ) % 10;
         return randomnumber;
     }
 

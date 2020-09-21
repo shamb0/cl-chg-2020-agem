@@ -1,0 +1,237 @@
+@startuml
+
+skinparam sequence {
+ArrowColor MidnightBlue
+ActorBorderColor MidnightBlue
+LifeLineBorderColor MidnightBlue
+LifeLineBackgroundColor #A9DCDF
+
+ParticipantBorderColor MidnightBlue
+ParticipantBackgroundColor snow
+ParticipantFontSize 17
+ParticipantFontColor MidnightBlue
+
+ActorBackgroundColor aqua
+ActorFontColor MidnightBlue
+ActorFontSize 17
+}
+
+actor User
+actor Admin
+participant "GEF Dapp SDK" as gapp
+participant "GEF Main" as gmain
+participant "GEF Token Mgr" as gtoken
+participant "GEF ECU Mgr" as gecu
+participant "CL ECU Inf Mock" as clecuinf
+participant "CL VRF Inf" as clvrf
+participant "CL Alarm Inf" as clala
+participant "CL VRF Oracle" as clvrfora
+participant "CL Alarm Oracle" as clalaora
+
+' Admin Functionality
+
+== Admin Interface API ==
+
+Admin -> gapp: regiGEFUser()
+activate gapp
+
+gapp -> gmain: regiGEFUser()
+activate gmain
+
+gmain -> gapp:
+deactivate gmain
+
+gapp -> Admin:
+deactivate gapp
+
+' User Functionality
+
+== GEF User Interface API ==
+
+User -> gapp: regiECUNode()
+activate gapp
+
+gapp -> gmain: regiECUNode()
+activate gmain
+
+gmain -> gecu: regiECUNode()
+activate gecu
+
+gecu -> clecuinf: validateECU()
+activate clecuinf
+
+clecuinf -> gecu:
+deactivate clecuinf
+
+gecu -> gmain:
+deactivate gecu
+
+gmain -> gapp:
+deactivate gmain
+
+gapp -> User:
+deactivate gapp
+
+User -> gapp: viewGEFBalance()
+activate gapp
+
+gapp -> gmain: viewGEFBalance()
+activate gmain
+
+gmain -> gtoken:  viewGEFBalance()
+activate gtoken
+
+gtoken -> gmain:
+deactivate gtoken
+
+gmain -> gapp:
+deactivate gmain
+
+gapp -> User:
+deactivate gapp
+
+== Real-time Power Generation Grid ECU Status Tracking ==
+
+group Cron Job ( No ending loop )
+' RNG
+
+group VRF API interaction
+gapp -> clvrf: getRandomNumber()
+activate clvrf
+
+clvrf -> clvrfora: requestRandomness()
+activate clvrfora
+
+clvrfora -> clvrf:
+deactivate clvrfora
+
+note right
+Request to
+ChainLink VRF
+Oracles
+end note
+
+clvrf -> gapp:
+deactivate clvrf
+
+clvrfora -> clvrf: fullfillRandomNumber()
+activate clvrf
+
+note left
+Async Respond from
+ChainLink VRF
+Oracles
+end note
+
+clvrf -> gapp: eventReceivedRandomNumber()
+activate gapp
+
+gapp -> clecuinf: updateRandomEnergyUnit()
+activate clecuinf
+
+clecuinf -> gapp:
+deactivate clecuinf
+
+gapp -> clvrf:
+deactivate gapp
+
+clvrf -> clvrfora:
+deactivate clvrf
+end
+
+' Alarm
+group Alarm API interaction
+gapp -> clala: delayStart()
+activate clala
+
+clala -> clalaora: sendChainlinkRequestTo()
+activate clalaora
+
+note right
+Request to
+ChainLink Alarm
+Oracles
+end note
+
+clalaora -> clala:
+deactivate clalaora
+
+clala -> gapp:
+deactivate clala
+
+clalaora -> clala: fulfill()
+activate clala
+
+note left
+Async respond from
+ChainLink Alarm
+Oracles
+end note
+
+clala -> gapp: eventAlaramDone()
+activate gapp
+
+gapp -> clala:
+deactivate gapp
+
+clala -> clalaora:
+deactivate clala
+
+end
+
+' Scan ECU Status
+
+group Scan and Update ECU status
+gapp -> gmain: scanECUStatus()
+activate gmain
+
+        gmain -> gmain: getUserList()
+
+    loop through register user list
+
+            gmain -> gmain: getUserECUList()
+
+        loop through user added ecu list
+
+            gmain -> gecu: getECUGeneratedEnergyUnits()
+            activate gecu
+
+            gecu -> clecuinf: getRandomEnergyUnit()
+            activate clecuinf
+
+                note right
+                Random energy units
+                from mock stub
+                end note
+
+            clecuinf -> gecu:
+            deactivate clecuinf
+
+            gecu -> gmain:
+            deactivate gecu
+
+            gmain -> gtoken: mint( to: ecuowner, amount: energyunit )
+            activate gtoken
+
+                note right
+                mint ERC20
+                GEF Token
+                for the random
+                energy unit
+                end note
+
+            gtoken -> gmain:
+            deactivate gtoken
+
+        end
+
+    end
+
+gmain -> gapp:
+deactivate gmain
+
+end
+
+end
+
+@enduml

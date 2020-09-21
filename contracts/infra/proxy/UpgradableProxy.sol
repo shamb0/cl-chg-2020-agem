@@ -40,6 +40,7 @@ contract UpgradableProxy is OwnableProxy, Proxy {
         require(_newProxyTo != address(0x0), "INVALID_PROXY_ADDRESS");
         require(isContract(_newProxyTo), "DESTINATION_ADDRESS_IS_NOT_A_CONTRACT");
         emit ProxyUpdated(implementation(), _newProxyTo);
+        console.log("updateImplementation Addr: %s,", address(this));
         setImplementation(_newProxyTo);
     }
 
