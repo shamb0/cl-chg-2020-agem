@@ -2,6 +2,8 @@
 
 **Wondering the possibility of distributed green power generation grids ...**
 
+- [devpost.com | Submission Link](https://devpost.com/software/green-energy-farm-gef-token)
+
 Ideation and proof-of-concept (POC) model is developed for [ chainlink-virtual-hackathon-2020 | Build the next generation of universally connected smart contracts]( https://chainlink-hackathon.devpost.com/ ) challenge.
 
 Thanks to Chainlink API's, oracle, bridge adopters and decentralised node clusters. Supports to
